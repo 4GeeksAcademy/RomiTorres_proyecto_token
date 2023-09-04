@@ -20,7 +20,6 @@ def handle_hello():
     return response_body, 200
 
 @api.route('/users', methods=['POST', 'GET'])
-
 def handle_users():
     if request.method == 'GET' :
         users = db.session.execute(db.select(User).order_by(User.name)).scalars()

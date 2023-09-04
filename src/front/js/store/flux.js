@@ -53,7 +53,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: {
 						method: 'POST',
 						"Content-Type": "application/json",
+						body: JSON.stringify({
+							"email": email,
+							"password": password
+						})
 					}}
+
 				const response = await fetch(process.env.BACKEND_URL + '/api/login', options)
 				const result = await response.json()
 				console.log("esto es el toke", result)
@@ -70,6 +75,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+					body: JSON.stringify({
+						"email": email,
+						"password": password
+					})
 				  }
 				};
 				const response = await fetch('/private', options);
