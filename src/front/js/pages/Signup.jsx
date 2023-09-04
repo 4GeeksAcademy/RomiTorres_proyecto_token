@@ -20,6 +20,9 @@ export const Signup = () => {
             // hacer un fetch al edpoint /api/user method POST
             // definir las options = objeto header, method 
             const options = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 method: 'POST',
                 body: {
                     "email": email,

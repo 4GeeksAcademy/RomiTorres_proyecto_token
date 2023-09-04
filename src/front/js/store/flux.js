@@ -49,10 +49,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			login: async () => {
-				const response = await fetch(process.env.BACKEND_URL + '/api/login', {method: 'POST'});
-				const result = await response.json();
-				console.log("esto es el toke", result);
-				sessionStorageStorage.setItem('token', result.access_token);
+				const options = {
+					headers: {
+						method: 'POST',
+						"Content-Type": "application/json",
+					}}
+				const response = await fetch(process.env.BACKEND_URL + '/api/login', options)
+				const result = await response.json()
+				console.log("esto es el toke", result)
+				sessionStorageStorage.setItem('token', result.access_token)
 			  },
 			  
 			  logout: () => {
@@ -63,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const options = {
 				  method: 'post',
 				  headers: {
+					"Content-Type": "application/json",
 					Authorization: `Bearer ${sessionStorage.getItem('token')}`,
 				  }
 				};
