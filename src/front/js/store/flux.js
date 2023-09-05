@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null,
+			users: null,
 			message: null,
 			demo: [
 				{
@@ -24,8 +25,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getMessage: async () => {
 				try{
+					const options = {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+						}}
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+					const resp = await fetch(process.env.BACKEND_URL + "/api/hello", options)
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
@@ -48,28 +54,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			login: async () => {
+			login: async (email, password) => {
 				const options = {
-					headers: {
-						method: 'POST',
-						"Content-Type": "application/json",
-						body: JSON.stringify({
+					method: 'POST',
+					headers: {	"Content-Type": "application/json"}, 
+					body: JSON.stringify({
 							"email": email,
 							"password": password
 						})
-					}}
+					}
 
 				const response = await fetch(process.env.BACKEND_URL + '/api/login', options)
 				const result = await response.json()
 				console.log("esto es el toke", result)
-				sessionStorageStorage.setItem('token', result.access_token)
+				sessionStorage.setItem('token', result.access_token)
+				setStore({users: result.users})
 			  },
 			  
 			  logout: () => {
 				sessionStorage.removeItem('token');
+				setStore({users: null})
 			  },
 			  
-			  makeRequestWithJWT: async () => {
+			  makeRequestWithJWT: async (email, password) => {
 				const options = {
 				  method: 'post',
 				  headers: {

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Signup = () => {
-    const [signup, setSignup] = useState([])
-    const userView = JSON.parse(sessionStorage.getItem('signupLocal'))
+    // const [signup, setSignup] = useState([])
+    // const userView = JSON.parse(sessionStorage.getItem('signupLocal'))
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -14,9 +14,10 @@ export const Signup = () => {
 
 
     const fetchSignup = async () => {
-        if (sessionStorage.getItem('signupLocal') !== null) {
-            setSignup(JSON.parse(sessionStorage.getItem('signupLocal')))
-        } else {
+        // if (sessionStorage.getItem('token') !== null) {
+        //     console.log("No se porque llegamos aca")
+            // setSignup(JSON.parse(sessionStorage.getItem('signupLocal')))
+        // } else {
             // hacer un fetch al edpoint /api/user method POST
             // definir las options = objeto header, method 
             const options = {
@@ -24,25 +25,27 @@ export const Signup = () => {
                     "Content-Type": "application/json",
                 },
                 method: 'POST',
+                // redirect: 'follow',
                 body: {
-                    "email": email,
-                    "password": password,
-                    "name": name,
-                    "lastname": lastname,
-                    "is_active": true
+                    "email": "hector@email.com",
+                    "password": "hector1234",
+                    "name": "hector",
+                    "lastname": "chocobar",
                 }
 
             }
+            console.log(options)
             const response = await fetch(process.env.BACKEND_URL + '/api/users', options);
+            console.log(response)
             if (response.ok) {
                 const data = await response.json();
-                setSignup(data);
+                console.log(data);
                 sessionStorage.setItem('signupLocal', JOSN.stringify(data))
             } else {
                 console.log('error:', response.status, response.statusText)
             }
         }
-    }
+    // }
 
     // useEffect(() => {
     //     fetchSignup();
@@ -50,14 +53,11 @@ export const Signup = () => {
 
     const handleOnclick = (e) => {
         e.preventDefault();
-        fetchSignup()
-            .then( () => {
-                navegate('/login')
-            })
+        fetchSignup();
     }
 
     return (
-        <form className="row g-3 container">
+        <form className="row g-3 container" onSubmit={handleOnclick}>
             <div className="col-md-6">
                 <label htmlFor="validationServer01" className="form-label">Nombre</label>
                 <input type="text" className="form-control " id="validationServer01" value={name} onChange={e => setName(e.target.value)} required />
@@ -80,7 +80,7 @@ export const Signup = () => {
             </div>
             
             <div className="col-12">
-                <button className="btn btn-primary" type="submit" onAuxClick={handleOnclick}>Enviar</button>
+                <button className="btn btn-primary" type="submit">Enviar</button>
             </div>
         </form>
 

@@ -18,21 +18,16 @@ export const Login = () => {
     const handleClick = (e) => {
         e.preventDefault();
         actions.login(email, password)
-            .then(success => {
-                if(success) {
-                    navegate('/private');
-                } else {
-                    alert("Error de inicio de sesión. Por favor, verifique su dirección de email y su contraseña")
-                }
-            });
+           
+           ;
     };
 
 
     return (
 
         <form className="container ">
-            {store.token && store.token != "" && store.token !== undefined ? (
-                <p> Ha iniciado sesión correctamente: {store.token}</p>
+            {store.users && store.users != "" && store.users !== undefined ? (
+                <p> Ha iniciado sesión correctamente: {store.users}</p>
             ) : (
             <div className="card">
                 <div className="row mb-3" id="email">

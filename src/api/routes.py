@@ -33,7 +33,7 @@ def handle_users():
         user = User(email= request_body["email"], 
                     password= request_body["password"],
                     name= request_body["name"],
-                    is_active= request_body['is_active'],
+                    is_active= True,
                     lastname= request_body["lastname"])
         db.session.add(user)
         db.session.commit()
@@ -77,6 +77,7 @@ def handle_user(id):
 def login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+    print(email, password)
     # aqui realizamos la consulta a nuestra DB
     # verificar email, password y si esta activo
     user = db.one_or_404(db.select(User).filter_by(email=email, password=password, is_active=True),
@@ -84,8 +85,9 @@ def login():
 
     access_token = create_access_token(identity=email)
     response_body = {'access_token':access_token,
-                    'message': 'User logged',
-                     'status': 'ok' }
+                     'message': 'User logged',
+                     'status': 'ok',
+                     'users': user.name }
     return response_body, 200
 
 
