@@ -25,13 +25,13 @@ export const Signup = () => {
                     "Content-Type": "application/json",
                 },
                 method: 'POST',
-                // redirect: 'follow',
-                body: {
+                redirect: 'follow',
+                body: JSON.stringify ({
                     "email": "hector@email.com",
                     "password": "hector1234",
                     "name": "hector",
                     "lastname": "chocobar",
-                }
+                })
 
             }
             console.log(options)
