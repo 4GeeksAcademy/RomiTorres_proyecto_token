@@ -1,3 +1,39 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+#email {
+    width: 500px;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+#contraseña {
+    width: 500px;
+    margin-left: 5px;
+}
+
+#inputPassword3 {
+    margin-left: 3rem;
+}
+
+#inputEmail3 {
+    margin-left: 3rem;
+}
+.card {
+    width: 35rem;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#ingresar {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 15rem;
+}
+
+#register {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}

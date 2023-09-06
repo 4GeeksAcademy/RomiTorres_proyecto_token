@@ -1,6 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: null,
+			users: null,
 			message: null,
 			demo: [
 				{
@@ -23,8 +25,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getMessage: async () => {
 				try{
+					const options = {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+						}}
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+					const resp = await fetch(process.env.BACKEND_URL + "/api/hello", options)
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
@@ -46,7 +53,62 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			login: async (email, password) => {
+				const options = {
+					method: 'POST',
+					headers: {	"Content-Type": "application/json"}, 
+					body: JSON.stringify({
+							"email": email,
+							"password": password
+						})
+					}
+
+				const response = await fetch(process.env.BACKEND_URL + '/api/login', options)
+				const result = await response.json()
+				console.log("esto es el toke", result)
+				sessionStorage.setItem('token', result.access_token)
+				setStore({users: result.users})
+			  },
+			  
+			  logout: () => {
+				sessionStorage.removeItem('token');
+				setStore({users: null})
+			  },
+			  
+			  makeRequestWithJWT: async (email, password) => {
+				const options = {
+				  method: 'post',
+				  headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+					body: JSON.stringify({
+						"email": email,
+						"password": password
+					})
+				  }
+				};
+				const response = await fetch('/private', options);
+				const result = await response.json();
+				return result;
+			  },
+
+			// Se crea esta fx para sincronizar el token almacenado en el sessionStorage con el estado global de la aplicación
+			// makeRequestWithJWT: () => {
+			// 	//1. Obtener el token del sessionStorage
+			// 	const token = sessionStorage.getItem('token')
+			// 	//1.1 Verificar si el token existe y no está vacío ni es undefined
+			// 	if (token && token != '' && typeof token != undefined){
+			// 		// 1.2. Actualizar el estado global de la aplicación con el token
+			// 		setStore({token: token})
+			// 	}
+			// },
+			// logout: () => {
+			// 	// Elimina el token almacenado en la session y lo reemplaza por null para tener que volver a logearse
+			// 	sessionStorage.removeItem("token");
+			// 	setStore({ token: null })
+
+			// },
 		}
 	};
 };
