@@ -23,12 +23,20 @@ export const Login = () => {
         navigate('/private');
     };
 
+    // const handleLogout = () => {
+    //     actions.logout();
+    //     navigate('login')
+    // };
 
     return (
 
         <form className="container ">
-            {store.users && store.users != "" && store.users !== undefined ? (
-                <p> Ha iniciado sesión correctamente: {store.users}</p>
+            {store.isLoggedIn ? (
+                <div>
+                    <p> Ha iniciado sesión correctamente: {store.email}</p> 
+                <button type="button" className="btn btn-danger" id="logout" onClick={handleLogout}>Cerrar sesión</button>
+                </div>
+                
             ) : (
             <div className="card">
                 <div className="row mb-3" id="email">
@@ -46,6 +54,7 @@ export const Login = () => {
                 <div className="mt-6">
                     <button type="submit" className="btn btn-primary" id="ingresar" onClick={handleClick}>Iniciar sesión</button>
                 </div>
+              
                 <hr className="m-4"/>
                 <div className="ml-auto" id="register">
 					<Link to="/signup">

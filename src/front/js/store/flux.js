@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			users: null,
+			isLoggedIn: sessionStorage.getItem('token') != null,
 			message: null,
 			demo: [
 				{
@@ -68,12 +69,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const result = await response.json()
 				console.log("esto es el toke", result)
 				sessionStorage.setItem('token', result.access_token)
-				setStore({users: result.users})
+				setStore({users: result.users, isLoggedIn: false})
 			  },
 			  
 			  logout: () => {
 				sessionStorage.removeItem('token');
-				setStore({users: null})
+				setStore({users: null, isLoggedIn: false})
 			  },
 			  
 			  makeRequestWithJWT: async (email, password) => {
