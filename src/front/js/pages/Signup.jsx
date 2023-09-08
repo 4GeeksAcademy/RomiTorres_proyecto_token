@@ -10,7 +10,7 @@ export const Signup = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
-    const navegate = useNavigate()
+    const navigate = useNavigate()
 
 
     const fetchSignup = async () => {
@@ -41,10 +41,13 @@ export const Signup = () => {
                 const data = await response.json();
                 console.log(data);
                 sessionStorage.setItem('signupLocal', JSON.stringify(data))
+                // resetea los campos
                 setEmail('');
                 setPassword(''),
                 setName('');
                 setLastname('');
+                // redirigir el componente
+                navigate('/login');
             } else {
                 console.log('error:', response.status, response.statusText)
             }
