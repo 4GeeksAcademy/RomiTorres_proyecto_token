@@ -10,7 +10,7 @@ export const Signup = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
-    const navegate = useNavigate()
+    const navigate = useNavigate()
 
 
     const fetchSignup = async () => {
@@ -27,10 +27,10 @@ export const Signup = () => {
                 method: 'POST',
                 redirect: 'follow',
                 body: JSON.stringify ({
-                    "email": "hector@email.com",
-                    "password": "hector1234",
-                    "name": "hector",
-                    "lastname": "chocobar",
+                    "email": email,
+                    "password": password,
+                    "name": name,
+                    "lastname": lastname,
                 })
 
             }
@@ -40,7 +40,14 @@ export const Signup = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                sessionStorage.setItem('signupLocal', JOSN.stringify(data))
+                sessionStorage.setItem('signupLocal', JSON.stringify(data))
+                // resetea los campos
+                setEmail('');
+                setPassword(''),
+                setName('');
+                setLastname('');
+                // redirigir el componente
+                navigate('/login');
             } else {
                 console.log('error:', response.status, response.statusText)
             }
