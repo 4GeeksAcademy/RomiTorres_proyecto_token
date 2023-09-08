@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const result = await response.json()
 				console.log("esto es el toke", result)
 				sessionStorage.setItem('token', result.access_token)
-				setStore({users: result.users, isLoggedIn: false})
+				setStore({users: result.users, isLoggedIn: true})
 			  },
 			  
 			  logout: () => {

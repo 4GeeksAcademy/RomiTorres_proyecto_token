@@ -40,8 +40,8 @@ export const Login = () => {
             ) : (
             <div className="card">
                 <div className="row mb-3" id="email">
-                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
+                        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
                         <input type="email" className="form-control" id="inputEmail3" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                 </div>

@@ -12,6 +12,19 @@ export const Private = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
 
+    const token = sessionStorage.getItem('token');
+  // Podria verificar si tiene token o no
+    fetch(process.env.BACKEND_URL + "/api/private", {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+
     const handleLogout = () => {
         actions.logout();
         navigate('/')
@@ -19,10 +32,9 @@ export const Private = () => {
     
     // let isLogin =  true  // esto debe venir del context, temporalm lo escribimos aca para probar
     return ( 
-       store.isLoggedIn ?
+       !store.isLoggedIn ?
             <div className= "container">
-                
-               
+                <h1>Usuario no registrado</h1>
                             </div>
         : 
             <div className= "container">
