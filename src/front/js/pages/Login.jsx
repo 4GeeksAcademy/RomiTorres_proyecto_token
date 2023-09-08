@@ -10,16 +10,17 @@ export const Login = () => {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    const navegate = useNavigate()
+    const navigate = useNavigate()
 
     // para obtener el token almacenado en el sessionStorage
     const token = sessionStorage.getItem('token');
 
     const handleClick = (e) => {
         e.preventDefault();
-        actions.login(email, password)
+        actions.login(email, password);
            
-           ;
+        // Agrega una redirección después de iniciar sesión
+        navigate('/private');
     };
 
 
