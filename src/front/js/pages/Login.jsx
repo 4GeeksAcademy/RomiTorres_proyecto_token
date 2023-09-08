@@ -41,13 +41,13 @@ export const Login = () => {
             <div className="card">
                 <div className="row mb-3" id="email">
                     <div className="col-sm-10">
-                        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
+                        <label htmlFor="inputEmail3" className="col-sm-6 me-4 col-form-label">Email</label>
                         <input type="email" className="form-control" id="inputEmail3" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                 </div>
                 <div className="row mb-3" id="contraseña">
-                    <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Contraseña</label>
                     <div className="col-sm-10">
+                        <label htmlFor="inputPassword3" className="col-sm-6 col-form-label">Contraseña</label>
                         <input type="password" className="form-control" id="inputPassword3" value={password} onChange={e => setPassword(e.target.value)}/>
                     </div>
                 </div>
