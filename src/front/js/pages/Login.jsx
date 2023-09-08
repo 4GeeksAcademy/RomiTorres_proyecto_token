@@ -23,29 +23,38 @@ export const Login = () => {
         navigate('/private');
     };
 
+    // const handleLogout = () => {
+    //     actions.logout();
+    //     navigate('login')
+    // };
 
     return (
 
         <form className="container ">
-            {store.users && store.users != "" && store.users !== undefined ? (
-                <p> Ha iniciado sesión correctamente: {store.users}</p>
+            {store.isLoggedIn ? (
+                <div>
+                    <p> Ha iniciado sesión correctamente: {store.email}</p> 
+                <button type="button" className="btn btn-danger" id="logout" onClick={handleLogout}>Cerrar sesión</button>
+                </div>
+                
             ) : (
             <div className="card">
                 <div className="row mb-3" id="email">
-                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
+                        <label htmlFor="inputEmail3" className="col-sm-6 me-4 col-form-label">Email</label>
                         <input type="email" className="form-control" id="inputEmail3" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                 </div>
                 <div className="row mb-3" id="contraseña">
-                    <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Contraseña</label>
                     <div className="col-sm-10">
+                        <label htmlFor="inputPassword3" className="col-sm-6 col-form-label">Contraseña</label>
                         <input type="password" className="form-control" id="inputPassword3" value={password} onChange={e => setPassword(e.target.value)}/>
                     </div>
                 </div>
                 <div className="mt-6">
                     <button type="submit" className="btn btn-primary" id="ingresar" onClick={handleClick}>Iniciar sesión</button>
                 </div>
+              
                 <hr className="m-4"/>
                 <div className="ml-auto" id="register">
 					<Link to="/signup">
