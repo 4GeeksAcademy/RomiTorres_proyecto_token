@@ -27,10 +27,10 @@ export const Signup = () => {
                 method: 'POST',
                 redirect: 'follow',
                 body: JSON.stringify ({
-                    "email": "hector@email.com",
-                    "password": "hector1234",
-                    "name": "hector",
-                    "lastname": "chocobar",
+                    "email": email,
+                    "password": password,
+                    "name": name,
+                    "lastname": lastname,
                 })
 
             }
@@ -40,7 +40,11 @@ export const Signup = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                sessionStorage.setItem('signupLocal', JOSN.stringify(data))
+                sessionStorage.setItem('signupLocal', JSON.stringify(data))
+                setEmail('');
+                setPassword(''),
+                setName('');
+                setLastname('');
             } else {
                 console.log('error:', response.status, response.statusText)
             }
